@@ -4,7 +4,7 @@ import { convertToModelMessages, createUIMessageStreamResponse, streamText, toUI
 export const maxDuration = 30
 const MAX_MESSAGES = 30
 const MAX_MESSAGE_LENGTH = 4000
-const MODEL = 'llama-3.1-8b-instant'
+const MODEL = 'openai/gpt-oss-20b'
 
 function isValidMessage(message: unknown): message is UIMessage {
   if (!message || typeof message !== 'object') return false
