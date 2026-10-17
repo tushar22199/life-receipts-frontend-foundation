@@ -367,7 +367,7 @@ A final reflection will be added after the improvement work, including what AI h
 
 ## FE-06 — Streaming AI Chat
 
-`/chat` is powered by the official `@ai-sdk/groq` provider using production model `llama-3.1-8b-instant`. The server reads `GROQ_API_KEY`; it is never exposed to the browser or committed. Create a key at [Groq Console](https://console.groq.com/keys), copy `.env.example` to your local environment, and set the key for development.
+`/chat` is powered by the official `@ai-sdk/groq` provider using production model `openai/gpt-oss-20b`. The server reads `GROQ_API_KEY`; it is never exposed to the browser or committed. Create a key at [Groq Console](https://console.groq.com/keys), copy `.env.example` to your local environment, and set the key for development.
 
 For Vercel, add `GROQ_API_KEY` as a server-side Environment Variable for Preview and Production, then redeploy. Do not name it `NEXT_PUBLIC_GROQ_API_KEY`. Requests with missing configuration, invalid credentials, rate limits, quota exhaustion, unsupported models, or upstream failures return a retryable error instead of a fabricated response.
 
