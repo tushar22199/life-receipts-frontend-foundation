@@ -364,3 +364,9 @@ A final reflection will be added after the improvement work, including what AI h
 
 - **Live application:** https://life-receipts-frontend-foundation.vercel.app/
 - **GitHub repository:** https://github.com/tushar22199/life-receipts-frontend-foundation
+
+## FE-06 — Streaming AI Chat
+
+`/chat` is powered by the Vercel AI Gateway through the AI SDK using model `openai/gpt-6.1-sol`. No provider key is read by application code: Vercel previews and deployments authenticate through the connected AI Gateway integration. There are no required project-level environment variables for the deployed flow; see `.env.example` and the current [AI Gateway documentation](https://vercel.com/docs/ai-gateway) for local authentication.
+
+Run `pnpm install` then `pnpm dev`, open `/chat`, and test Enter-to-send, Shift+Enter newlines, streaming output, and Stop Generation. Configure or update the AI Gateway integration in Vercel Project Settings, then redeploy before testing a new deployment.

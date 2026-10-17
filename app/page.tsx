@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ChevronDown, Circle, Disc3, Music2, Play, Plus, Search, Square, Triangle, X } from 'lucide-react'
 import { dataSources } from '@/lib/data-sources'
@@ -33,7 +34,7 @@ function loadArchiveData() {
 }
 
 function HudClock() { const [now, setNow] = useState(new Date()); useEffect(() => { const timer = window.setInterval(() => setNow(new Date()), 1000); return () => window.clearInterval(timer) }, []); return <div className="hud-time"><span>TIME</span><strong suppressHydrationWarning>{now.toLocaleTimeString('en-GB', { hour12: false })}</strong><span>DATE</span><strong suppressHydrationWarning>{now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' })}</strong></div> }
-function GameHeader({ archive = false }: { archive?: boolean }) { return <header className="game-header"><div className="game-logo"><span>{'LIFE//RECEIPTS'}</span><small>{archive ? 'RECEIPT ARCHIVE' : 'DIGITAL LIFE ARCHIVE'}</small></div><div className="header-hud"><div className="hud-actions"><span><Triangle /> CUSTOMIZE</span><span><Square /> {archive ? 'ARCHIVE' : 'ARCHIVE'}</span></div><HudClock /><div className="online"><i /> STATUS&nbsp; ONLINE</div></div></header> }
+function GameHeader({ archive = false }: { archive?: boolean }) { return <header className="game-header"><div className="game-logo"><span>{'LIFE//RECEIPTS'}</span><small>{archive ? 'RECEIPT ARCHIVE' : 'DIGITAL LIFE ARCHIVE'}</small></div><div className="header-hud"><div className="hud-actions"><span><Triangle /> CUSTOMIZE</span><span><Square /> {archive ? 'ARCHIVE' : 'ARCHIVE'}</span><Link className="hud-chat-link" href="/chat">CHAT</Link></div><HudClock /><div className="online"><i /> STATUS&nbsp; ONLINE</div></div></header> }
 type ArchiveStats = { receipts: number; years: string; connections: number; chapters: number }
 let statsPromise: Promise<ArchiveStats> | null = null
 let storyCandidatesData: Record<Exclude<SourceKey, 'all'>, Row[]> | null = null
