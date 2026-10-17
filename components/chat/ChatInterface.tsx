@@ -12,7 +12,7 @@ export function ChatInterface() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
   const nearBottomRef = useRef(true)
-  const { messages, sendMessage, status, stop, error } = useChat()
+  const { messages, sendMessage, regenerate, status, stop, error } = useChat()
   const busy = status === 'submitted' || status === 'streaming'
 
   useEffect(() => { const element = scrollRef.current; if (!element) return; const onScroll = () => { const nextNearBottom = element.scrollHeight - element.scrollTop - element.clientHeight < 100; nearBottomRef.current = nextNearBottom; setIsNearBottom(nextNearBottom) }; element.addEventListener('scroll', onScroll, { passive: true }); return () => element.removeEventListener('scroll', onScroll) }, [])
@@ -25,7 +25,7 @@ export function ChatInterface() {
     <div className="chat-transcript" ref={scrollRef} aria-live="polite">
       {messages.length === 0 && <div className="chat-empty"><span className="archive-kicker">ARCHIVE ASSISTANT // READY</span><h2>Ask the archive a question.</h2><p>Reflect on patterns, connected moments, or the meaning inside a digital life archive.</p><button className="chat-suggestion" onClick={() => { setInput('What kinds of patterns can a digital life archive reveal?'); }}>What kinds of patterns can a digital life archive reveal?</button></div>}
       {messages.map((message) => <article className={`chat-message chat-${message.role}`} key={message.id}><div className="chat-message-meta">{message.role === 'user' ? 'YOU' : 'ARCHIVE ASSISTANT'}</div><div className="chat-bubble">{messageText(message) || (message.role === 'assistant' && busy ? <span className="chat-dots" aria-label="Thinking">● ● ●</span> : null)}</div></article>)}
-      {error && <div className="chat-error" role="alert"><strong>CONNECTION ERROR</strong><span>{error.message || 'The assistant could not complete that request.'}</span><button onClick={() => { const lastUser = [...messages].reverse().find((message) => message.role === 'user'); if (lastUser) void sendMessage({ text: messageText(lastUser) }) }}>RETRY</button></div>}
+      {error && <div className="chat-error" role="alert"><strong>CONNECTION ERROR</strong><span>{error.message || 'The assistant could not complete that request.'}</span><button onClick={() => void regenerate()}>RETRY</button></div>}
       <div ref={endRef} />
     </div>
     {!isNearBottom && <button className="chat-latest" onClick={() => endRef.current?.scrollIntoView({ behavior: 'smooth' })}>↓ LATEST</button>}
